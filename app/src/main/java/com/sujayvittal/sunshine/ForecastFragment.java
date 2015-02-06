@@ -101,6 +101,7 @@ public class ForecastFragment extends Fragment {
     public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 
         private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
+        private ArrayAdapter<String> mForecastAdapter;
 
         @Override
         protected String[] doInBackground(String... params) {
@@ -190,10 +191,17 @@ public class ForecastFragment extends Fragment {
                 Log.e(LOG_TAG, e.getMessage(), e);
                 e.printStackTrace();
             }
-
+            // This will only happen if there is any error getting or parsing the forecast
             return null;
+        }
 
-
+        protected void onPreExecute(String[] result) {
+            if(result != null){
+                mForecastAdapter.clear();
+                for(String dayForecastStr: result){
+                    mForecastAdapter.add(dayForecastStr);
+                }
+            }
         }
 
         private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays)
