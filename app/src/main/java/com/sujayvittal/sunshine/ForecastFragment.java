@@ -204,7 +204,6 @@ public class ForecastFragment extends Fragment {
             }
         }
 
-
         private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays)
                 throws JSONException {
 
